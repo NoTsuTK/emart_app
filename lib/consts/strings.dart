@@ -43,15 +43,15 @@ const searchanything = "Search anything...",
     featuredCategories = "Featured Categories";
 
 //category Strings
-const womenClothing = "Women Ciothing",
-    menClothingFashion = "Men Clothing & Fashion",
-    compAccess = "Computer & Accessories",
-    automobile = "Automoblie",
-    kidtoys = "Kids & Toys",
-    sports = "Sports",
-    jewelery = "Jewelery",
-    cellphone = "Cellphone & Tab",
-    furniture = "Furniture";
+const womenClothing = "Snack",
+    menClothingFashion = "Drink",
+    compAccess = "semi-finished food",
+    automobile = "Condiment",
+    kidtoys = "Body Cleaning",
+    sports = "Milk & Eggs",
+    jewelery = "Pet food",
+    cellphone = "Mother & baby",
+    furniture = "Household appliances";
 
 //item details strings
 const video = "Video",
@@ -62,4 +62,8 @@ const video = "Video",
     productsyoumaylike = "Products you may also like";
 
 //profile strings
-const wishlist = "Mywishlist", orders = "My Orders", messagse = "Messages";
+const wishlist = "Mywishlist",
+    orders = "My Orders",
+    messagse = "Messages",
+    oldpass = "Old password",
+    newpass = "New password";

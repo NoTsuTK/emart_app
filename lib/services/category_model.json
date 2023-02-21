@@ -1,0 +1,104 @@
+{
+    "categories": [
+        {
+            "name": "Snack",
+            "subcategory" : [
+                "Chips",
+                "Chocolate",
+                "Candy",
+                "Waffle",
+                "Cookie",
+                "Bean"
+            ]
+        },
+        {
+            "name": "Drink",
+            "subcategory" : [
+                "Water",
+                "Cola",
+                "Juice",
+                "Tea",
+                "Coffe",
+                "Energy Drink"
+            ]
+        },
+        {
+            "name": "semi-finished food",
+            "subcategory" : [
+                "Instant noodle",
+                "Canned fish",
+                "Rice porridge",
+                "Canned soup",
+                "Canned fruit",
+                "Pickles"
+            ]
+        },
+        {
+            "name": "Condiment",
+            "subcategory" : [
+                "Flour",
+                "Oil",
+                "Sauce",
+                "Cerial",
+                "Rice",
+                "Caned milk"
+            ]
+        },
+        {
+            "name": "Body Cleaning",
+            "subcategory" : [
+                "Shampoo",
+                "Sanitary pad",
+                "Toothpaste",
+                "Soap bar",
+                "Cleanser",
+                "Powder"
+            ]
+        },
+        {
+            "name": "Milk & Eggs",
+            "subcategory" : [
+                "Yoghurt",
+                "Eggs",
+                "Milk",
+                "Butter",
+                "Cheses",
+                "Moji"
+            ]
+        },
+        {
+            "name": "Pet food",
+            "subcategory" : [
+                "Dog",
+                "Cat",
+                "Bird",
+                "Fish",
+                "Squirrel",
+                "Chicken"
+            ]
+        },
+        {
+            "name": "Mother & baby",
+            "subcategory" : [
+                "Baby snack",
+                "Pregnancy Supplement",
+                "Pampers",
+                "Baby milk powder",
+                "Baby toy",
+                "Children's Equipment"
+            ]
+        },
+        {
+            "name": "Household appliances",
+            "subcategory" : [
+                "Softner",
+                "Tissue",
+                "Sponge",
+                "Broom",
+                "Dishwashing liquid",
+                "Bathroom cleaner"
+            ]
+        }
+    ]
+        
+}

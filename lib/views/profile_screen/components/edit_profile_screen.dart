@@ -16,34 +16,40 @@ class EditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.find<ProfileController>();
-    controller.nameController.text = data['name'];
-    controller.passwordController.text = data['password'];
 
     return bgWidget(
         child: Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(),
             body: Obx(
               () => Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  controller.profileImgPath.isEmpty
+                  data['imageUrl'] == '' && controller.profileImgPath.isEmpty
                       ? Image.asset(imgProfile2, width: 100, fit: BoxFit.cover)
                           .box
                           .roundedFull
                           .clip(Clip.antiAlias)
                           .make()
-                      : Image.file(
-                          File(controller.profileImgPath.value),
-                          width: 150,
-                          fit: BoxFit.cover,
-                        ).box.roundedFull.clip(Clip.antiAlias).make(),
+                      : data['imageUrl'] != '' &&
+                              controller.profileImgPath.isEmpty
+                          ? Image.network(
+                              data['imageUrl'],
+                              width: 150,
+                              fit: BoxFit.cover,
+                            ).box.roundedFull.clip(Clip.antiAlias).make()
+                          : Image.file(
+                              File(controller.profileImgPath.value),
+                              width: 150,
+                              fit: BoxFit.cover,
+                            ).box.roundedFull.clip(Clip.antiAlias).make(),
                   10.heightBox,
                   ourButton(
                       color: pinkColor,
                       textColor: whiteColor,
                       title: "Change",
                       onPressed: () {
-                        Get.find<ProfileController>().changeImage(context);
+                        controller.changeImage(context);
                       }),
                   20.heightBox,
                   const Divider(),
@@ -52,20 +58,61 @@ class EditProfileScreen extends StatelessWidget {
                       title: name,
                       isPass: false,
                       controller: controller.nameController),
+                  10.heightBox,
                   customTextField(
                       hint: passwordHint,
-                      title: password,
+                      title: oldpass,
                       isPass: true,
-                      controller: controller.passwordController),
+                      controller: controller.oldpasswordController),
+                  10.heightBox,
+                  customTextField(
+                      hint: passwordHint,
+                      title: newpass,
+                      isPass: true,
+                      controller: controller.newpasswordController),
                   20.heightBox,
-                  SizedBox(
-                    width: context.screenWidth - 60,
-                    child: ourButton(
-                        color: pinkColor,
-                        textColor: whiteColor,
-                        title: "Save",
-                        onPressed: () {}),
-                  ),
+                  controller.isLoading.value
+                      ? const CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(pinkColor))
+                      : SizedBox(
+                          width: context.screenWidth - 60,
+                          child: ourButton(
+                              color: pinkColor,
+                              textColor: whiteColor,
+                              title: "Save",
+                              onPressed: () async {
+                                controller.isLoading(true);
+
+                                if (controller
+                                    .profileImgPath.value.isNotEmpty) {
+                                  await controller.uploadProfileImage();
+                                } else {
+                                  controller.profileImageLink =
+                                      data['imageUrl'];
+                                }
+
+                                if (data['password'] ==
+                                    controller.oldpasswordController.text) {
+                                  await controller.changeAuthPassword(
+                                      email: data['email'],
+                                      password:
+                                          controller.oldpasswordController.text,
+                                      newpassword: controller
+                                          .newpasswordController.text);
+
+                                  await controller.updateProfile(
+                                      imageUrl: controller.profileImageLink,
+                                      name: controller.nameController.text,
+                                      password: controller
+                                          .newpasswordController.text);
+                                  VxToast.show(context, msg: "Updated");
+                                } else {
+                                  VxToast.show(context,
+                                      msg: "Wrong old password");
+                                  controller.isLoading(false);
+                                }
+                              }),
+                        ),
                 ],
               )
                   .box
