@@ -74,7 +74,6 @@ class ItemDetails extends StatelessWidget {
                     size: 25,
                     stepInt: true,
                   ),
-
                   10.heightBox,
                   "${data['p_price']}"
                       .numCurrency
@@ -124,8 +123,8 @@ class ItemDetails extends StatelessWidget {
                   20.heightBox,
 
                   //color section
-                  Column(
-                    children: [
+                  Obx(
+                    () => Column(children: [
                       Row(
                         children: [
                           SizedBox(
@@ -162,55 +161,67 @@ class ItemDetails extends StatelessWidget {
                                       )))
                         ],
                       ).box.padding(const EdgeInsets.all(8)).make(),
-                    ],
-                  ).box.white.shadowSm.make(),
-
-                  //quantity row
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 100,
-                        child: "Quanitiy : ".text.color(textfieldGrey).make(),
-                      ),
-                      Obx(
-                        () => Row(
-                          children: [
-                            IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.remove)),
-                            controller.quantity.value.text
-                                .size(16)
-                                .color(darkFontGrey)
-                                .fontFamily(bold)
-                                .make(),
-                            IconButton(
-                                onPressed: () {}, icon: const Icon(Icons.add)),
-                            10.heightBox,
-                            "(${data['p_quantity']} available)"
-                                .text
-                                .color(textfieldGrey)
-                                .make(),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ).box.padding(const EdgeInsets.all(8)).make(),
-
-                  //total row
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 100,
-                        child: "Total : ".text.color(textfieldGrey).make(),
-                      ),
-                      "฿0.00"
-                          .text
-                          .color(pinkColor)
-                          .size(16)
-                          .fontFamily(bold)
-                          .make()
-                    ],
-                  ).box.padding(const EdgeInsets.all(8)).make(),
+                      //quantity row
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 100,
+                            child:
+                                "Quanitiy : ".text.color(textfieldGrey).make(),
+                          ),
+                          Column(
+                            children: [
+                              Row(
+                                children: [
+                                  IconButton(
+                                      onPressed: () {
+                                        controller.decreaseQuantity();
+                                        controller.calculateTotalPrice(
+                                            int.parse(data['p_price']));
+                                      },
+                                      icon: const Icon(Icons.remove)),
+                                  controller.quantity.value.text
+                                      .size(16)
+                                      .color(darkFontGrey)
+                                      .fontFamily(bold)
+                                      .make(),
+                                  IconButton(
+                                      onPressed: () {
+                                        controller.increaseQuantity(
+                                            int.parse(data['p_quantity']));
+                                        controller.calculateTotalPrice(
+                                            int.parse(data['p_price']));
+                                      },
+                                      icon: const Icon(Icons.add)),
+                                  10.heightBox,
+                                  "(${data['p_quantity']} available)"
+                                      .text
+                                      .color(textfieldGrey)
+                                      .make(),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ).box.padding(const EdgeInsets.all(8)).make(),
+                      //total row
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 100,
+                            child: "Total : ".text.color(textfieldGrey).make(),
+                          ),
+                          "${controller.totalPrice.value}"
+                              .numCurrency
+                              .text
+                              .color(pinkColor)
+                              .size(16)
+                              .fontFamily(bold)
+                              .make()
+                        ],
+                      ).box.padding(const EdgeInsets.all(8)).make(),
+                    ]),
+                  ),
 
                   10.heightBox,
                   //Description section
@@ -295,7 +306,17 @@ class ItemDetails extends StatelessWidget {
               color: pinkColor,
               textColor: whiteColor,
               title: "Add to cart",
-              onPressed: () {},
+              onPressed: () {
+                controller.addToCart(
+                    color: data['p_colors'][controller.colorIndex.value],
+                    context: context,
+                    img: data['p_imgs'][0],
+                    qty: controller.quantity.value,
+                    sellername: data['p_seller'],
+                    title: data['p_name'],
+                    tprice: controller.totalPrice.value);
+                VxToast.show(context, msg: "Added to cart");
+              },
             ),
           )
         ],

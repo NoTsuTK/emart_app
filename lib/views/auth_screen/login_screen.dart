@@ -67,7 +67,7 @@ class LoginScreen extends StatelessWidget {
                               controller.isLoading(false);
                             }
                           });
-                        }),
+                        }).box.width(context.screenWidth - 50).make(),
                 5.heightBox,
                 createNewAccount.text.color(fontGrey).make(),
                 5.heightBox,
@@ -77,7 +77,7 @@ class LoginScreen extends StatelessWidget {
                     title: sigup,
                     onPressed: () {
                       Get.to(() => const SigupScreen());
-                    }),
+                    }).box.width(context.screenWidth - 50).make(),
                 loginWith.text.color(fontGrey).make(),
                 5.heightBox,
                 Row(
