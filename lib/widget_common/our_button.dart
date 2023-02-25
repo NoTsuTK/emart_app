@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:emart_app/consts/consts.dart';
 
 Widget ourButton(
     {required color,

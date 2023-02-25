@@ -5,8 +5,12 @@ import 'package:emart_app/controllers/auth_controller.dart';
 import 'package:emart_app/controllers/profile_controller.dart';
 import 'package:emart_app/services/firestore_service.dart';
 import 'package:emart_app/views/auth_screen/login_screen.dart';
+import 'package:emart_app/views/chat_screen/messaging_screen.dart';
+import 'package:emart_app/views/order_screen/order_screen.dart';
 import 'package:emart_app/views/profile_screen/components/details_card.dart';
+import 'package:emart_app/views/wishlists_screen/wishlist_screen.dart';
 import 'package:emart_app/widget_common/bg_widget.dart';
+import 'package:emart_app/widget_common/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -94,26 +98,36 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  detailsCard(
-                      count: "${data['cart_count']}",
-                      title: "in your cart",
-                      width: context.screenWidth / 3.4),
-                  detailsCard(
-                      count: "${data['wishlist_count']}",
-                      title: "in your wishlist",
-                      width: context.screenWidth / 3.4),
-                  detailsCard(
-                      count: "${data['order_count']}",
-                      title: "in your orders",
-                      width: context.screenWidth / 3.4),
-                ],
+              FutureBuilder(
+                future: FirestoreService.getCounts(),
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: loadingIndicator(),
+                    );
+                  } else {
+                    var countData = snapshot.data;
+
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        detailsCard(
+                            count: countData[0].toString(),
+                            title: "in your cart",
+                            width: context.screenWidth / 3.4),
+                        detailsCard(
+                            count: countData[1].toString(),
+                            title: "in your wishlist",
+                            width: context.screenWidth / 3.4),
+                        detailsCard(
+                            count: countData[2].toString(),
+                            title: "in your orders",
+                            width: context.screenWidth / 3.4),
+                      ],
+                    );
+                  }
+                },
               ),
-
-              //Button section
-
               ListView.separated(
                       shrinkWrap: true,
                       separatorBuilder: (context, index) {
@@ -124,6 +138,19 @@ class ProfileScreen extends StatelessWidget {
                       itemCount: profileButtonsList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return ListTile(
+                          onTap: () {
+                            switch (index) {
+                              case 0:
+                                Get.to(() => const OrderScreen());
+                                break;
+                              case 1:
+                                Get.to(() => const WishlistScreen());
+                                break;
+                              case 2:
+                                Get.to(() => const MessageScreen());
+                                break;
+                            }
+                          },
                           leading: Image.asset(
                             profileButtonIcon[index],
                             width: 22,

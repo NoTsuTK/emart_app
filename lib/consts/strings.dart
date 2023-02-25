@@ -33,12 +33,12 @@ const searchanything = "Search anything...",
     topSellers = "Top Sellers",
     brand = "Brand",
     topCategories = "Top Categories",
-    womenDress = "Women Dress",
-    girlsWatches = "Girls Watches",
-    mobilePhone = "Mobile Phone",
-    boysGlasses = "Boys Glasses",
-    tShirts = "TShirts",
-    girlsDress = "Girls Dress",
+    womenDress = "Snack",
+    girlsWatches = "Drink",
+    mobilePhone = "semi-finished food",
+    boysGlasses = "Condiments",
+    tShirts = "Body Cleaning",
+    girlsDress = "Milk & Eggs",
     featuredProduct = "Featured Product",
     featuredCategories = "Featured Categories";
 
@@ -67,3 +67,5 @@ const wishlist = "Mywishlist",
     messagse = "Messages",
     oldpass = "Old password",
     newpass = "New password";
+
+const paypal = "Paypal", stripe = "stripe", cod = "Cash on delivery";

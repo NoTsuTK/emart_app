@@ -1,7 +1,6 @@
 import 'package:emart_app/widget_common/our_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 
 import '../consts/consts.dart';
 
